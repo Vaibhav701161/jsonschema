@@ -354,7 +354,7 @@ auto sourcemeta::jsonschema::validate(const sourcemeta::core::Options &options)
     bool subresult{true};
     if (benchmark) {
       subresult = run_loop(
-          evaluator, schema_template, entry.second, entry.first.string(),
+          evaluator, schema_template, entry.second, entry.first,
           entry.multidocument ? static_cast<std::int64_t>(entry.index + 1)
                               : static_cast<std::int64_t>(-1),
           benchmark_loop);
@@ -379,7 +379,7 @@ auto sourcemeta::jsonschema::validate(const sourcemeta::core::Options &options)
       result = subresult;
     } else if (json_output) {
       if (!entry.multidocument && entries.size() > 1) {
-        std::cerr << entry.first.string() << "\n";
+        std::cerr << entry.first << "\n";
       }
       const auto suboutput{sourcemeta::blaze::standard(
           evaluator, schema_template, entry.second,
